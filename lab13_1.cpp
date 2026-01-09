@@ -19,3 +19,38 @@ int main(){
     cout << "Min = " << B[5];
     return 0;
 }
+
+void stat(const double A[], int N, double B[])
+
+{
+    double sum = 0.0;
+    double sumSq = 0.0;
+    double logSum = 0.0;
+    double invSum = 0.0;
+
+    double max = A[0];
+    double min = A[0];
+
+    for(int i = 0; i < N; i++)
+    {
+        sum += A[i];
+        sumSq += A[i] * A[i];
+        logSum += log(A[i]);
+        invSum += 1.0 / A[i];
+
+        if(A[i] > max) max = A[i];
+        if(A[i] < min) min = A[i];
+    }
+
+    double mean = sum / N;
+    double stddev = sqrt((sumSq / N) - (mean * mean));
+    double gmean = exp(logSum / N);
+    double hmean = N / invSum;
+
+    B[0] = mean;
+    B[1] = stddev;
+    B[2] = gmean;
+    B[3] = hmean;
+    B[4] = max;
+    B[5] = min;
+}
